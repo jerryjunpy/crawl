@@ -34,7 +34,6 @@ class Kuaidu:
         """
         download = Download()
         response = download.get_url(url, 5)
-        n = 0
         if response:
             try:
                 j = response.json()
@@ -47,8 +46,6 @@ class Kuaidu:
                     description = data['context'].strip()
                     self.save_date(shippingorderno, description, track_date)
             time.sleep(0.8)
-            n += 1
-            print('已完成%s' % n)
 
     def save_date(self, shippingorderno, description, track_date):
         """
