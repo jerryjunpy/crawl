@@ -152,40 +152,30 @@ class Download:
 
         thread_list = []
         try:
-            # 创建一个线程，并指定执行的任务
-            t1 = threading.Thread(target=self.get_url, args=[8])
-            t2 = threading.Thread(target=self.get_url, args=[8])
-            t3 = threading.Thread(target=self.get_url, args=[8])
-            t4 = threading.Thread(target=self.get_url, args=[8])
-            t5 = threading.Thread(target=self.get_url, args=[8])
-            t6 = threading.Thread(target=self.get_url, args=[8])
-            t7 = threading.Thread(target=self.get_url, args=[8])
-            t8 = threading.Thread(target=self.get_url, args=[8])
 
-            t1.start()
-            t2.start()
-            t3.start()
-            t4.start()
-            t5.start()
-            t6.start()
-            t7.start()
-            t8.start()
+            # 创建线程，并指定执行的任务
+            for i in range(10):
 
-            thread_list.append(t1)
-            thread_list.append(t2)
-            thread_list.append(t3)
-            thread_list.append(t4)
-            thread_list.append(t5)
-            thread_list.append(t6)
-            thread_list.append(t7)
-            thread_list.append(t8)
+                t = threading.Thread(target=self.get_text, args=[])
 
-            print('Project start at %s' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                thread_list.append(t)
+
+                print('%s start at %s' % (threading.current_thread().name + str(i+1), 
+                                          datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+
+            for i in range(10):
+
+                thread_list[i].start()
 
             # 让主线程阻塞，等待所有的子线程结束，再继续执行。
-            for thread in thread_list:
-                thread.join()
-        except:
+
+            for i in range(10):
+
+                thread_list[i].join()
+
+        except Exception as e:
+
+            print(e)
 
             print('Error: unable to start thread')
 
